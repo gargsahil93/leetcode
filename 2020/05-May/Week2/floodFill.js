@@ -8,13 +8,11 @@
 var floodFill = function(image, sr, sc, newColor) {
     let color = image[sr][sc];
     let fill = (x, y) => {
-        if (x >= 0 && y >= 0 && x< image.length && image[0].length && image[x][y] === color) {
-            image[x][y] = newColor;
-            fill(x-1, y);
-            fill(x+1, y);
-            fill(x, y-1);
-            fill(x, y+1);
-        }
+        image[x][y] = newColor;
+        if (x > 0 && image[x-1][y] === color) fill(x-1, y);
+        if (x < image.length-1 && image[x+1][y] === color) fill(x+1, y);
+        if (image[x][y-1] === color) fill(x, y-1);
+        if (image[x][y+1] === color) fill(x, y+1);
     };
     if (color !== newColor) fill(sr, sc);
     return image;
